@@ -21,7 +21,7 @@ try:
         http_listen = config["http"]["listen"]
         users = config["users"]
     except KeyError as e:
-        raise (f"Could not find the key {e}")
+        raise Exception(f"Could not find the key {e}")
 
     # Parse listen field
     try:

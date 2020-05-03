@@ -2,12 +2,32 @@
 
 This repository provides 2 python packages to read data from ENEDIS energy meters.
 
-- `serial-teleinfo-server` : A simple web-server providing live readings through a JSON api
-- `serial-teleinfo` : A package providing the methods to read and parse data
+- `serial_teleinfo_server` : A simple web-server providing live readings through a JSON api
+- `serial_teleinfo` : A package providing the methods to read and parse data
 
 You will need a serial adapter such as the [Micro Teleinfo](https://www.tindie.com/products/hallard/micro-teleinfo-v20/).
 
 ## Running the server
+
+The web server exposes a JSON API providing live data read from the energy meter :
+
+```json
+{
+   "connected":true,
+   "values":{
+      "ISOUSC": [30, "A"],
+      "BASE": [804220, "Wh"],
+      "PTEC": ["TH", null],
+      "IINST": [1, "A"],
+      "IMAX": [90, "A"],
+      "PAPP": [340, "VA"],
+      "HHPHC": ["A", null],
+      "MOTDETAT": ["000000", null],
+      "ADCO": ["012345678901", null],
+      "OPTARIF": ["BASE", null]
+   }
+}
+```
 
 ### Configuration file
 
@@ -43,7 +63,7 @@ pip install serial-teleinfo-server
 Create a configuration file `teleinfo.ini` as described above and run the command :
 
 ```bash
-python -m serial-teleinfo-server teleinfo.ini
+python -m serial_teleinfo_server teleinfo.ini
 ```
 
 You can access the values at [http://apiuser:apipassword@localhost:8000/status.json](http://apiuser:apipassword@localhost:8000/status.json).
@@ -82,6 +102,12 @@ The environment variables are :
 
 
 ## Using the library
+
+Install the package :
+
+```bash
+pip install serial-teleinfo
+```
 
 ### serial_teleinfo.Client
 
