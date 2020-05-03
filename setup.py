@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="serial-teleinfo",
-    version="1.0.0",
+    version="1.0.1",
     author="Ugo Méda",
     author_email="meda.ugo@gmail.com",
     description="Utilities to connect to a Teleinformation serial device",

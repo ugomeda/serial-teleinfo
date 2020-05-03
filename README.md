@@ -15,6 +15,7 @@ The web server exposes a JSON API providing live data read from the energy meter
 ```json
 {
    "connected":true,
+   "ready":true,
    "values":{
       "ISOUSC": [30, "A"],
       "BASE": [804220, "Wh"],
@@ -136,7 +137,11 @@ This utility class manages a background thread to update values indefinitely.
 It will automatically handle reconnection to the serial port and ignore temporary errors or
 reccuring unknown keys.
 
-It provides a `values` property and a `connected` property.
+It provides 3 main properties :
+
+- `values` : A dictionary with all the values
+- `connected` : True if the client is connected to the meter
+- `ready` : True if all the values are available
 
 You can also override the `update_value` method to access the read values as they are read.
 
@@ -146,11 +151,13 @@ Heres an example usage :
 import time
 from serial_teleinfo import ValueUpdater
 
+
 class MyValueUpdater(ValueUpdater):
     def update_value(self, value):
         print(f"Updated {value.key}")
 
         super().update_value(value)
+
 
 updater = MyValueUpdater("/dev/ttyUSB0")
 updater.start()
@@ -158,10 +165,11 @@ updater.start()
 try:
     while True:
         print(f"Connected : {updater.connected}")
+        print(f"Ready : {updater.ready}")
         for value in updater.values.values():
             print(value)
-        
-        time.sleep(5)
+
+        time.sleep(2)
 finally:
     updater.stop()
 ```

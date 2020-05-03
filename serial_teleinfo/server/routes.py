@@ -22,4 +22,6 @@ async def status(request):
         key: [value.value, value.unit] for key, value in client.values.items()
     }
 
-    return web.json_response({"connected": client.connected, "values": json_values})
+    return web.json_response(
+        {"connected": client.connected, "ready": client.ready, "values": json_values}
+    )

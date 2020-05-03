@@ -21,6 +21,7 @@ class ValueUpdater:
         # State
         self._values = {}
         self._connected = False
+        self._end_of_frame_count = 0
         self._ignored_keys = []  # Unknown keys already logged
 
         # Thread stuffs
@@ -50,6 +51,9 @@ class ValueUpdater:
         """
         self._values[value.key] = value
 
+        if value.end_of_frame:
+            self._end_of_frame_count += 1
+
     def _update_loop(self):
         while True:
             try:
@@ -63,6 +67,7 @@ class ValueUpdater:
 
             logger.debug(f"Disconnected from {self._port}")
             self._connected = False
+            self._end_of_frame_count = 0
 
             if self._stop_event.wait(10):
                 return  # We were asked to stop
@@ -125,3 +130,10 @@ class ValueUpdater:
     @property
     def connected(self) -> bool:
         return self._connected
+
+    @property
+    def ready(self) -> bool:
+        # We gathered all the values only once we had the
+        # first end of frame marker (partial update) and a
+        # second one
+        return self._end_of_frame_count >= 2
