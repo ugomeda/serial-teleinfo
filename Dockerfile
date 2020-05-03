@@ -4,7 +4,7 @@ WORKDIR /app/
 RUN pip install aiohttp http_basic_auth serial
 
 COPY serial_teleinfo /app/serial_teleinfo/
-COPY docker/entrypoint.sh /app/
+COPY entrypoint.sh /app/
 
 ENV TELEINFO_DEVICE /dev/ttyUSB0
 ENV TELEINFO_LOGLEVEL INFO

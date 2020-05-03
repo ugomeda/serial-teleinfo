@@ -15,7 +15,7 @@ try:
         print(f"Connected : {updater.connected}")
         for value in updater.values.values():
             print(value)
-        
+
         time.sleep(5)
 finally:
     updater.stop()
