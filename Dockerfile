@@ -1,7 +1,7 @@
 FROM python:3-slim
 
 WORKDIR /app/
-RUN pip install aiohttp http_basic_auth serial
+RUN pip install aiohttp http_basic_auth pyserial
 
 COPY serial_teleinfo /app/serial_teleinfo/
 COPY entrypoint.sh /app/
