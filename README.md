@@ -75,7 +75,7 @@ A docker image is provided, here's an example `docker-compose.yml` :
 version: '3'
 services:
   teleinfo:
-    image: teleinfo
+    image: ugomeda/serial-teleinfo
     restart: always
     devices:
       - /dev/ttyUSB0
