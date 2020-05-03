@@ -12,4 +12,4 @@ listen=$HTTP_LISTEN
 $USERS_USER=$USERS_PASSWORD
 EOF
 
-exec python -m serial_teleinfo_server /app/teleinfo.ini
+exec python -m serial_teleinfo.server /app/teleinfo.ini

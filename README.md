@@ -1,11 +1,12 @@
 # Serial Teleinfo
 
-This repository provides 2 python packages to read data from ENEDIS energy meters.
+This project provides Python utilities to access data from Enedis energy meters using a serial converter :
 
-- `serial_teleinfo_server` : A simple web-server providing live readings through a JSON api
-- `serial_teleinfo` : A package providing the methods to read and parse data
+- `serial_teleinfo` provides the classes to read and parse data
+- `serial_teleinfo.server` is a simple web-server to access live readings through a JSON api
 
-You will need a serial adapter such as the [Micro Teleinfo](https://www.tindie.com/products/hallard/micro-teleinfo-v20/).
+You will need a serial adapter such as the [Micro Teleinfo](https://www.tindie.com/products/hallard/micro-teleinfo-v20/)
+to use this package.
 
 ## Running the server
 
@@ -36,6 +37,7 @@ The configuration is as follows :
 ```ini
 [teleinfo]
 device=/dev/ttyUSB0
+loglevel=INFO
 
 [http]
 listen=127.0.0.1:8000
@@ -44,29 +46,26 @@ listen=127.0.0.1:8000
 apiuser=apipassword
 ```
 
-You can add a `loglevel` entry to modify the log verbosity. It can be `DEBUG`, `INFO`, `WARNING`, `ERROR`. Default is `INFO`.
-
-```ini
-[teleinfo]
-device=/dev/ttyUSB0
-loglevel=DEBUG
-```
+- `teleinfo/device` : The path to the serial port.
+- `teleinfo/loglevel` *(optionnal)* : Modifies the log verbosity, it can be `DEBUG`, `INFO`, `WARNING`, `ERROR`. Default is `INFO`.
+- `http/listen` : The host and port to listen to.
+- `users` : A list of user/password allowed to use the API (using basic authentification).
 
 ### Using python
 
 Install the package :
 
 ```bash
-pip install serial-teleinfo-server
+pip install serial-teleinfo[server]
 ```
 
 Create a configuration file `teleinfo.ini` as described above and run the command :
 
 ```bash
-python -m serial_teleinfo_server teleinfo.ini
+python -m serial_teleinfo.server teleinfo.ini
 ```
 
-You can access the values at [http://apiuser:apipassword@localhost:8000/status.json](http://apiuser:apipassword@localhost:8000/status.json).
+Once the server is running, you can access the values at [http://apiuser:apipassword@localhost:8000/status.json](http://apiuser:apipassword@localhost:8000/status.json).
 
 ### Using Docker
 
@@ -133,7 +132,7 @@ You can also refer to the `serial_teleinfo.ValueUpdater` implementation.
 
 ### serial_teleinfo.ValueUpdater
 
-This utility class manages a background thread to update values undefinitely.
+This utility class manages a background thread to update values indefinitely.
 It will automatically handle reconnection to the serial port and ignore temporary errors or
 reccuring unknown keys.
 

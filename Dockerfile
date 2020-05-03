@@ -1,11 +1,9 @@
 FROM python:3-slim
 
 WORKDIR /app/
-COPY requirements.txt requirements-server.txt /app/
-RUN pip install -r requirements.txt -r requirements-server.txt
+RUN pip install aiohttp http_basic_auth serial
 
 COPY serial_teleinfo /app/serial_teleinfo/
-COPY serial_teleinfo_server /app/serial_teleinfo_server/
 COPY docker/entrypoint.sh /app/
 
 ENV TELEINFO_DEVICE /dev/ttyUSB0

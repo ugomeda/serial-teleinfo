@@ -2,7 +2,7 @@ import asyncio
 from aiohttp import web
 from typing import Dict
 
-from serial_teleinfo_server.routes import routes
+from serial_teleinfo.server.routes import routes
 from serial_teleinfo import ValueUpdater
 
 

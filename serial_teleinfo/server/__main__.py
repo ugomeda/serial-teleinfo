@@ -4,7 +4,7 @@ import sys
 import logging
 from aiohttp import web
 
-from serial_teleinfo_server.server import app_factory
+from serial_teleinfo.server.server import app_factory
 
 # Fetch arguments
 parser = argparse.ArgumentParser()
