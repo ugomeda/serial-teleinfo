@@ -1,15 +1,14 @@
 import re
 from typing import Tuple
 
-from serial_teleinfo.exception import ParserException, InvalidChecksumException
-
+from serial_teleinfo.exception import InvalidChecksumException, ParserException
 
 SEPARATOR = b"\x20"
 MATCHER = re.compile(b"^([^\x20\x09]+)([\x20\x09])(.+)([\x20\x09])([\x20-\x7e])$")
 
 
 def parse_line(line: bytes) -> Tuple[str, str, bool]:
-    """ Parses a line and verifies the checksum according to the specification
+    """Parses a line and verifies the checksum according to the specification
     available at https://www.enedis.fr/sites/default/files/Enedis-NOI-CPT_02E.pdf.
 
     Returns:

@@ -1,4 +1,5 @@
 import serial
+
 from serial_teleinfo import Client, TeleinfoException
 
 try:

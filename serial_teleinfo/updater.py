@@ -2,7 +2,7 @@ import logging
 import threading
 from typing import Dict
 
-from serial_teleinfo import Client, Value, UnknownKeyException, ParserException
+from serial_teleinfo import Client, ParserException, UnknownKeyException, Value
 
 logger = logging.getLogger(__name__)
 
@@ -10,7 +10,7 @@ MAX_CONSECUTIVE_ERRORS = 16
 
 
 class ValueUpdater:
-    """ Helper class updating the values in a background thread
+    """Helper class updating the values in a background thread
     and providing the result through the values property.
     """
 
@@ -29,8 +29,7 @@ class ValueUpdater:
         self._stop_event = None
 
     def start(self):
-        """ Starts the background thread
-        """
+        """Starts the background thread"""
         if self._thread is not None:
             raise RuntimeError("Method start() can only be called once.")
 
@@ -41,14 +40,12 @@ class ValueUpdater:
         self._thread.start()
 
     def stop(self):
-        """ Stops the background thread and waits for its death.
-        """
+        """Stops the background thread and waits for its death."""
         self._stop_event.set()
         self._thread.join()
 
     def update_value(self, value: Value):
-        """ This method can be overriden to access values soon as they are read
-        """
+        """This method can be overriden to access values soon as they are read"""
         self._values[value.key] = value
 
         if value.end_of_frame:
@@ -73,7 +70,7 @@ class ValueUpdater:
                 return  # We were asked to stop
 
     def _update(self, client):
-        """ Reads the values and updates the values dict continuoulsy.
+        """Reads the values and updates the values dict continuoulsy.
 
         Raises:
             TeleinfoException: If more than 16 consecutive lines coulds not be read.
@@ -119,8 +116,7 @@ class ValueUpdater:
 
     @property
     def values(self) -> Dict[str, Value]:
-        """ Returns a copy of the current values dictionnary
-        """
+        """Returns a copy of the current values dictionnary"""
         return dict(self._values)
 
     @property

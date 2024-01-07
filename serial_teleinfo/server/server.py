@@ -1,9 +1,10 @@
 import asyncio
-from aiohttp import web
 from typing import Dict
 
-from serial_teleinfo.server.routes import routes
+from aiohttp import web
+
 from serial_teleinfo import ValueUpdater
+from serial_teleinfo.server.routes import routes
 
 
 async def start_value_updater(app):

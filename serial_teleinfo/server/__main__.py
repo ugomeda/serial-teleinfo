@@ -1,7 +1,8 @@
-import configparser
 import argparse
-import sys
+import configparser
 import logging
+import sys
+
 from aiohttp import web
 
 from serial_teleinfo.server.server import app_factory

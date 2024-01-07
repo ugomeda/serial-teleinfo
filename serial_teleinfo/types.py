@@ -1,5 +1,6 @@
-from serial_teleinfo.exception import ParserException
 from typing import Callable, List
+
+from serial_teleinfo.exception import ParserException
 
 
 class Value:

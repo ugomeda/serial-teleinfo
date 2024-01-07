@@ -1,5 +1,5 @@
 from aiohttp import web
-from http_basic_auth import parse_header, BasicAuthException
+from http_basic_auth import BasicAuthException, parse_header
 
 routes = web.RouteTableDef()
 

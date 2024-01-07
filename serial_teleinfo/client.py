@@ -1,11 +1,8 @@
 import serial
 
+from serial_teleinfo.exception import ParserException, UnknownKeyException
 from serial_teleinfo.parser import parse_line
-from serial_teleinfo.types import type_parsers, Value
-from serial_teleinfo.exception import (
-    ParserException,
-    UnknownKeyException,
-)
+from serial_teleinfo.types import Value, type_parsers
 
 
 class Client:
@@ -14,7 +11,7 @@ class Client:
         self._serial = None
 
     def __enter__(self) -> "Client":
-        """ Opens the connections to the serial port.
+        """Opens the connections to the serial port.
 
         Raises:
             serial.SerialException: If an error occured while establishing the connection
@@ -44,12 +41,11 @@ class Client:
             self._serial.close()
 
     def _raw_line(self) -> bytes:
-        """ Returns next line read on the serial port
-        """
+        """Returns next line read on the serial port"""
         return self._serial.readline()
 
     def read_line(self) -> (str, str):
-        """ Parses the next line and returns it as a key, value pair
+        """Parses the next line and returns it as a key, value pair
 
         Raises:
             ParserException: If the line could not be decoded
@@ -57,8 +53,7 @@ class Client:
         return parse_line(self._raw_line())
 
     def read_value(self) -> Value:
-        """ Parses the next line and returns it as a Value object
-        """
+        """Parses the next line and returns it as a Value object"""
         key, value, end_of_frame = self.read_line()
 
         # Parse the data

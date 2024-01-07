@@ -1,4 +1,5 @@
 import time
+
 from serial_teleinfo import ValueUpdater
 
 
